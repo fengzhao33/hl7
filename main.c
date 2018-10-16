@@ -137,6 +137,10 @@ char * getFie(int i,int j,char *segment,char *res){
 	char *flag;
 	for(;k<i;k++){
 		flag = strchr(segment,0x7c);// |的ascii是0x7c	
+		if(flag == NULL){
+			res=NULL;
+			return NULL;
+		}
 		flag++;
 		segment = flag;	
 	}	
@@ -166,7 +170,7 @@ int parrse(char *hl7){
 	if(strncmp(seg,"MSH",3) != 0)
 		printf("fail to find MSH\n");	
 	getFie(9,10,seg,msgId);
-	if(strncmp(msgId,"204",3)!=0)
+	if(msgId== NULL || strncmp(msgId,"204",3)!=0)
 		return 0;
 //如果是則準備寫入文件
 	FILE *fp = NULL;
